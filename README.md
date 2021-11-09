@@ -7,4 +7,4 @@ Code de calcul de plaque stratifiées composites, le code prend comme données d
  - Les dimensions de la plaque
 
 Les  résultats sont :
- - Les efforts et déformations dans chaque plis
+ - Les efforts et déformations dans chaque pli
