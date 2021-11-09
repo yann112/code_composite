@@ -1,5 +1,4 @@
 # code_composite
-
 Code de calcul de plaque stratifiées composites, le code prend comme données d'entrées : 
  - Le nombre de plis
  - L'agencement des plis (angle)
