@@ -9,39 +9,44 @@ import numpy as np
 ####copier coller les matrices de rigidité et les donnees d entrees
 
 
-PO =  10 #charge en Pa 
-a = 1 #longueur de plaque en metre
-x_1 = 1/2#point etudie en metre
-x_2 = 1/2
+PO =  15 #charge en Pa 
+a = 2 #longueur de plaque en metre
+x_1 = 1#point etudie en metre
+
 
 #contrainte en Mpa
-SIG1_rt = 1500
-SIG1_rc = -1500
-SIG2_rt = 50
-SIG2_rc = -200
-SIG6_r = 100
+SIG1_rt = 1100
+SIG1_rc = -250
+SIG2_rt = 35
+SIG2_rc = -120
+SIG6_r = 50
 
 
 #Matrices de rigidite en Gpa
 Q_pi_0 =Matrix([
-[140.91,  3.02,  0],
-[  3.02, 10.06,  0],
-[     0,     0, 10]])
+[117.23, 2.08, 0],
+[  2.08, 5.94, 0],
+[     0,    0, 2]])
+
+Q_pi_2 =Matrix([
+[5.94,   2.08, 0],
+[2.08, 117.23, 0],
+[   0,      0, 2]])
 
 Q_pi_4 = Matrix([
-[49.25, 29.25, 32.71],
-[29.25, 49.25, 32.71],
-[32.71, 32.71, 36.23]])
+[33.83, 29.83, 27.82],
+[29.83, 33.83, 27.82],
+[27.82, 27.82, 29.75]])
 
 _Q_pi_4 = Matrix([
-[ 49.25,  29.25, -32.71],
-[ 29.25,  49.25, -32.71],
-[-32.71, -32.71,  36.23]])
+[ 33.83,  29.83, -27.82],
+[ 29.83,  33.83, -27.82],
+[-27.82, -27.82,  29.75]])
 
 D = Matrix([
-[ 0.95,  0.51, -0.26],
-[ 0.51,  0.86, -0.26],
-[-0.26, -0.26,  0.63]])
+[746.13,  623.69, 445.16],
+[623.69, 1645.73, 445.16],
+[445.16,  445.16, 621.46]])
 
 #forme de u3O_11 pour rotule/rotule chargement uniforme : -PO/2/D[0,0]*(x_1**2-a*x_1))
 #forme de u3O_11 pour encastrement/encastrement chargement -q1*sin(pi*x_1/l) : PO/D[0,0]* (a/np.pi)**2*(np.sin(np.pi*x_1/a)-2/np.pi)
@@ -52,33 +57,33 @@ D = Matrix([
 ##u3O_12 = k*cos(np.pi*x_1/a)*cos(np.pi*x_2/a)
 
 
-u3O_11 = PO/D[0,0]* (a/np.pi)**2*(np.sin(np.pi*x_1/a)-2/np.pi)
+u3O_11 = - PO/12/D[0,0]* (6*x_1**2-6*a*x_1+a**2)
 u3O_22 = 0
 u3O_12 = 0
 
 #remplacer les info pour chaque couches exemple c0_inf0 = [hauteur,angle,matrice]
 #remplacer les couches inutiles par  [-0.0,0,zeros(3,3)]
 
-c1_inf0 = [-0.3,-pi/4,_Q_pi_4]
-c1_sup0 = [-0.2,-pi/4,_Q_pi_4]
+c1_inf0 = [-3.5,pi/4,Q_pi_4]
+c1_sup0 = [-2.5,pi/4,Q_pi_4]
 
-c2_inf0 = [-0.2,pi/4,Q_pi_4]
-c2_sup0 = [-0.1,pi/4,Q_pi_4]
+c2_inf0 = [-2.5,pi/2,Q_pi_2]
+c2_sup0 = [-1.5,pi/2,Q_pi_2]
 
-c3_inf0 = [-0.1,0,Q_pi_0]
-c3_sup0 = [0,0,Q_pi_0]
+c3_inf0 = [-1.5,-pi/4,_Q_pi_4]
+c3_sup0 = [-0.5,-pi/4,_Q_pi_4]
 
-c4_inf0 = [-0.0,0,zeros(3,3)]
-c4_sup0 = [-0.0,0,zeros(3,3)]
+c4_inf0 = [-0.5,0,Q_pi_0]
+c4_sup0 = [-0.5,0,Q_pi_0]
 
-c5_inf0 = [0,0,Q_pi_0]
-c5_sup0 = [0.1,0,Q_pi_0]
+c5_inf0 = [0.5,-pi/4,_Q_pi_4]
+c5_sup0 = [1.5,-pi/4,_Q_pi_4]
 
-c6_inf0 = [0.1,pi/4,Q_pi_4]
-c6_sup0 = [0.2,pi/4,Q_pi_4]
+c6_inf0 = [1.5,pi/2,Q_pi_2]
+c6_sup0 = [2.5,pi/2,Q_pi_2,]
 
-c7_inf0 = [0.2,-pi/4,_Q_pi_4]
-c7_sup0 = [0.3,-pi/4,_Q_pi_4]
+c7_inf0 = [2.5,pi/4,Q_pi_4]
+c7_sup0 = [3.5,pi/4,Q_pi_4]
 
 
 

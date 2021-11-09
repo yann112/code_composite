@@ -7,10 +7,10 @@ from lib_calcul_matrices import *
 
 ####grandeur generalisée composite
 
-E1 = 157#GPa
-E2 = 8#GPa
-v12 = 0.32#
-G12 = 3#GPa
+E1 = 116.5#GPa
+E2 = 5.9#GPa
+v12 = 0.35#
+G12 = 2#GPa
 
 ####grandeur generalisée ame en materiau homogene E1=E2 G = E/(2*(1+v))
 
@@ -21,15 +21,15 @@ G12 = 3#GPa
 
 ####epaisseurs des couches
 ####inscrire 0 dans les couches non utilisee la centrale et les exterieures
-#e= 0.1
+e= 1
 
-e1 = 0 
+e1 = 1 
 e2 = 1 
-e3 = 1.5
-e4 = 0
-e5 = 1.5
+e3 = 1
+e4 = 1
+e5 = 1
 e6 = 1 
-e7 = 0 
+e7 = 1 
 
 ####matrices de rigidité base d'orthotropie
 
@@ -39,12 +39,12 @@ c_base_ortho = cbarre(E1,E2,v12,G12)
 ####matrices de rigidité hors base d'orthotropie
 ####inscrire Matrix([0,0,0,0,0,0,0,0,0]).reshape(3,3) dans les couches non utilisee la centrale et les exterieures
 
-c1 = Matrix([0,0,0,0,0,0,0,0,0]).reshape(3,3)
-c2 = ccouche("-pi/6",-pi/6,c_base_ortho)
-c3 = ccouche("pi/12",pi/12,c_base_ortho)
-c4 = Matrix([0,0,0,0,0,0,0,0,0]).reshape(3,3)
-c5 = ccouche("-pi/12",-pi/12,c_base_ortho)
-c6 = ccouche("pi/6",pi/6,c_base_ortho)
+c1 = ccouche("pi/4",pi/4,c_base_ortho)
+c2 = ccouche("pi/2",pi/2,c_base_ortho)
+c3 = ccouche("-pi/4",-pi/4,c_base_ortho)
+c4 = ccouche("0",0,c_base_ortho)
+c5 = c3
+c6 = c2
 c7 = c1
 
 
@@ -91,7 +91,9 @@ pprint(round_expr(B,2))
 
 ####Matrices D
 
-
+print()
+print("la suite des hauteurs des plans moyens est (attention aux couches virtuelles) :")
+print(z1,z2,z3,z4,z5,z6,z7)
 
 print()
 print("Matrice de rigidité en flexion est D = en N.m")
@@ -119,3 +121,4 @@ for i in list_h :
 
 pyplot.show()
 
+print(c1*((z1+0.5*e1)**3 - (z1-0.5*e1)**3))

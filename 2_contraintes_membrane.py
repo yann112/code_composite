@@ -9,56 +9,66 @@ import numpy as np
 ####copier coller les matrices de rigidité et les donnees d entrees
 
 #contrainte en Mpa
-SIG1_rt = 1200
-SIG1_rc = -300
-SIG2_rt = 50
-SIG2_rc = -140
-SIG6_r = 70
+SIG1_rt = 1100
+SIG1_rc = -250
+SIG2_rt = 35
+SIG2_rc = -120
+SIG6_r = 50
 
 
 #Matrices de rigidite en Gpa
 Q_pi_0 =Matrix([
-[70.5, 2.01, 0],
-[2.01, 8.06, 0],
-[   0,    0, 5]])
+[117.23, 2.08, 0],
+[  2.08, 5.94, 0],
+[     0,    0, 2]])
 
-Q_pi_2 = Matrix([
-[8.06, 2.01, 0],
-[2.01, 70.5, 0],
-[   0,    0, 5]])
+Q_pi_2 =Matrix([
+[5.94,   2.08, 0],
+[2.08, 117.23, 0],
+[   0,      0, 2]])
 
+Q_pi_4 =Matrix([
+[33.83, 29.83, 27.82],
+[29.83, 33.83, 27.82],
+[27.82, 27.82, 29.75]])
+
+_Q_pi_4 =Matrix([
+[ 33.83,  29.83, -27.82],
+[ 29.83,  33.83, -27.82],
+[-27.82, -27.82,  29.75]])
 #Matrice de rigidite en membrane en N.m
 A = Matrix([
-[745323741.01,  30215827.34,        0],
-[ 30215827.34, 433093525.18,        0],
-[           0,            0, 75000000]])
+[264420799.42, 125553547.87,            0],
+[125553547.87, 375711229.97,            0],
+[           0,            0, 125008311.22]])
+
 
 #Matrice des efforts en N.m
-N = Matrix([10**6,0,0]).reshape(1,3)
+N = Matrix([10**5,0,0]).reshape(1,3)
 
 #remplacer les info pour chaque couches exemple c0_inf0 = [angle,matrice]
 #remplacer les couches inutiles par  [-0.0,0,zeros(3,3)]
 
-c1_inf0 = [0,zeros(3,3)]
-c1_sup0 = [0,zeros(3,3)]
+c1_inf0 = [pi/4,Q_pi_4]
+c1_sup0 = [pi/4,Q_pi_4]
 
-c2_inf0 = [0,zeros(3,3)]
-c2_sup0 = [0,zeros(3,3)]
+c2_inf0 = [pi/2,Q_pi_2]
+c2_sup0 = [pi/2,Q_pi_2]
 
-c3_inf0 = [0,Q_pi_0]
-c3_sup0 = [0,Q_pi_0]
+c3_inf0 = [-pi/4,_Q_pi_4]
+c3_sup0 = [-pi/4,_Q_pi_4]
 
-c4_inf0 = [pi/2,Q_pi_2]
-c4_sup0 = [pi/2,Q_pi_2]
+c4_inf0 = [0,Q_pi_0]
+c4_sup0 = [0,Q_pi_0]
 
-c5_inf0 = [0,Q_pi_0]
-c5_sup0 = [0,Q_pi_0]
+c5_inf0 = [-pi/4,_Q_pi_4]
+c5_sup0 = [-pi/4,_Q_pi_4]
 
-c6_inf0 = [0,zeros(3,3)]
-c6_sup0 = [0,zeros(3,3)]
+c6_inf0 = [pi/2,Q_pi_2]
+c6_sup0 = [pi/2,Q_pi_2]
 
-c7_inf0 = [0,zeros(3,3)]
-c7_sup0 = [0,zeros(3,3)]
+c7_inf0 = [pi/4,Q_pi_4]
+c7_sup0 = [pi/4,Q_pi_4]
 
 
 
